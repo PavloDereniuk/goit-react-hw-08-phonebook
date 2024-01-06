@@ -1,37 +1,60 @@
+import { lazy, useEffect } from 'react';
+import SharedLayout from './Layout';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import PublicRoute from './PublicRoute';
+import PrivateRoute from './PrivateRoute';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import operations from '../redux/Auth/authOperations';
+import authSelectors from '../redux/Auth/authSelectors';
 
-import { ContactForm } from './ContactForm/ContactForm';
-import { ContactList } from './ContactList/ContactList';
-import { Filter } from './Filter/Filter';
-import { fetchContacts } from '../redux/operations';
-import {
-  selectError,
-  selectIsLoading,
-  selectVisibleContacts,
-} from '../redux/selectors';
-import { Loader } from './Loader';
-import { Container } from './General.styled';
+const HomeView = lazy(() => import('./views/HomeView/HomeView'));
+const RegisterView = lazy(() => import('./views/RegisterView/RegisterView'));
+const LoginView = lazy(() => import('./views/LoginView/LoginView'));
+const ContactsView = lazy(() => import('./views/ContactsView'));
 
 export const App = () => {
   const dispatch = useDispatch();
-  const visibleContacts = useSelector(selectVisibleContacts);
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(operations.getCurrentUser());
   }, [dispatch]);
 
+  const isRefreshingUser = useSelector(authSelectors.selectIsRefreshing);
+
   return (
-    <Container>
-      <h1>Phonebook</h1>
-      {isLoading && !error && <Loader />}
-      {error && <p >Sorry, something went wrong. Please try to reload this page.</p>}
-      <ContactForm />
-      <h2>Contacts</h2>
-      <Filter />
-      {visibleContacts.length > 0 && !error ? <ContactList /> : <p >Your phonebook is empty.</p>}
-    </Container>
+    !isRefreshingUser && (
+      <Routes>
+        <Route path="/" element={<SharedLayout />}>
+          <Route index element={<PublicRoute component={<HomeView />} />} />
+          <Route
+            path="/register"
+            element={
+              <PublicRoute
+                restricted
+                redirectTo="/contacts"
+                component={<RegisterView />}
+              />
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <PublicRoute
+                restricted
+                redirectTo="/contacts"
+                component={<LoginView />}
+              />
+            }
+          />
+          <Route
+            path="/contacts"
+            element={
+              <PrivateRoute redirectTo="/login" component={<ContactsView />} />
+            }
+          />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Route>
+      </Routes>
+    )
   );
 };

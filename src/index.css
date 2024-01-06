@@ -1,11 +1,12 @@
 body {
-  padding: 20px;
+  padding: 20px 40px;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: #535353;
 }
 
 code {
@@ -22,11 +23,9 @@ h5,
 h6 {
   margin: 0;
 }
-
 img {
   display: block;
 }
-
 ul,
 ol {
   margin: 0;
@@ -35,7 +34,80 @@ ol {
 }
 
 h1,
-h2 {
-  padding: 20px;
+h2,
+h3 {
+  margin-bottom: 30px;
   text-transform: uppercase;
+  text-decoration: underline 5px solid rgba(230, 158, 14, 0.679);
+
+}
+
+button {
+border-radius: 8px;
+border-style: none;
+box-sizing: border-box;
+color: #000000;
+cursor: pointer;
+font-family: inherit;
+font-size: 16px;
+font-weight: 500;
+height: 50px;
+line-height: 20px;
+margin: 0;
+outline: none;
+padding: 15px 15px;
+position: relative;
+text-align: center;
+text-decoration: none;
+transition: color 100ms;
+vertical-align: baseline;
+touch-action: manipulation;
+}
+
+header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  margin-bottom: 5px;
+  box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+}
+
+.info-text {
+  padding-left: 20px;
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.auth-nav {
+display: flex;
+justify-content: flex-end;
+}
+
+.nav-link {
+  display: flex;
+justify-content: flex-end;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 600;
+  color: #535353;
+margin-right: 30px;
+}
+
+.nav {
+  display: flex;
+padding: 10px;
+}
+
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
 }

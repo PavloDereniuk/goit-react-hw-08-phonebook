@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import Notiflix from 'notiflix';
 
-import { addContact } from '../../redux/operations';
+import { addContact } from '../../redux/Contacts/operations';
 import {
   ErrorMessage,
   Field,
@@ -12,7 +12,7 @@ import {
   Container,
 } from './ContactForm.styled';
 
-import { selectContacts } from '../../redux/selectors';
+import { selectContacts } from '../../redux/Contacts/selectors';
 
 const contactsSchema = Yup.object().shape({
   name: Yup.string()

@@ -16,6 +16,7 @@ export const Item = styled.li`
 export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 16px;
   padding: 12px;
 `;
